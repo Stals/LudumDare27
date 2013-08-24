@@ -1,7 +1,7 @@
 #include "Wall.h"
 #include "Constants.h"
 
-Wall::Wall(b2World* world):GameObject(world, GroundType)
+Wall::Wall(b2World* world):GameObject(world, WallType)
 {
 	this->setupBody();
 }

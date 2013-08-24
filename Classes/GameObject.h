@@ -7,6 +7,7 @@ enum ObjectType{
 	RockType,
 	PlayerType,
 	GroundType,
+	WallType,
 	FinishType
 };
 

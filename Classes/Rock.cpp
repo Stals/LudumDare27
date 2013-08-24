@@ -37,7 +37,7 @@ void Rock::setupBody(){
 
     b2FixtureDef spriteShapeDef;
     spriteShapeDef.shape = &spriteShape;
-    spriteShapeDef.density = 0.0; // so that will not spin
+    spriteShapeDef.density = 5.0; // so that will not spin
     spriteShapeDef.isSensor = false;
     body->CreateFixture(&spriteShapeDef);
 }

@@ -5,7 +5,7 @@
 
 
 USING_NS_CC;
-#define DEBUG_BOX2D
+//#define DEBUG_BOX2D
 #ifdef DEBUG_BOX2D
 #include "B2DebugDraw/B2DebugDrawLayer.h"
 #endif
@@ -73,7 +73,8 @@ void GameLayer::setupKeyboard(){
 
 void GameLayer::setupWorld(){
 	// Create b2 world
-    b2Vec2 gravity = b2Vec2(0.0f, -10.0f); // Gravity is zero as we aren't using it, zero turns it off so no processor time wasted.
+    //b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
+	b2Vec2 gravity = b2Vec2(0.0f, -1.f);
     m_b2dWorld = new b2World(gravity);
 	m_b2dWorld->SetAllowSleeping(false);
     
@@ -114,7 +115,7 @@ void GameLayer::spawnRock(float delta){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	Rock* rock = new Rock(m_b2dWorld);
-	int x = (rand() % (int)winSize.width);
+	int x = (rand() % (int)winSize.width-60) + 30;
 	rock->setPosition(ccp(x, winSize.height + 50));
 
 	this->addChild(rock, zRock);

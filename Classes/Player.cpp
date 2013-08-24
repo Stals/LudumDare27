@@ -42,7 +42,13 @@ void Player::setupBody(){
 
 
 void Player::jump(){
-	b2Vec2 force = b2Vec2(0.f, 10.0);
+	b2Vec2 currentVelocity = body->GetLinearVelocity();
+	if(currentVelocity.y < 0){
+		currentVelocity.y = 0;
+	}
+	body->SetLinearVelocity(currentVelocity);
+
+	b2Vec2 force = b2Vec2(0.f, 15.0);
 	b2Vec2 point = body->GetPosition();
 
 	body->ApplyLinearImpulse(force, point);
@@ -76,4 +82,17 @@ void Player::moveRight(){
 	b2Vec2 point = body->GetPosition();
 
 	body->ApplyLinearImpulse(force, point);
+}
+
+
+void Player::update(float dt){
+	GameObject::update(dt);
+
+	b2Vec2 currentVelocity = body->GetLinearVelocity();
+
+	if(currentVelocity.y <= 0){
+		body->ApplyForceToCenter(b2Vec2(0.0f, -20.f));
+	}else{
+		body->ApplyForceToCenter(b2Vec2(0.0f, -9.8f));
+	}
 }

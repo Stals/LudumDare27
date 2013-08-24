@@ -16,5 +16,6 @@ protected:
 	cocos2d::CCSprite *sprite;
 
 	virtual void setupBody();
+	virtual void update(float dt);
 };
 
