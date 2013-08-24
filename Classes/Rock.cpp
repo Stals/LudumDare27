@@ -9,7 +9,6 @@ Rock::Rock(b2World* world):GameObject(world, RockType)
 }
 
 Rock::~Rock(){
-	world->DestroyBody(body);
 }
 
 void Rock::resolveCollision(GameObject* other){
@@ -37,7 +36,8 @@ void Rock::setupBody(){
 
     b2FixtureDef spriteShapeDef;
     spriteShapeDef.shape = &spriteShape;
-    spriteShapeDef.density = 5.0; // so that will not spin
+    spriteShapeDef.density = 0.0; // so that will not spin
+	spriteShapeDef.restitution = 0.0;
     spriteShapeDef.isSensor = false;
     body->CreateFixture(&spriteShapeDef);
 }

@@ -81,6 +81,7 @@ void GameLayer::setupWorld(){
     // Create contact listener
     m_contactListener = new CContactListener();
     m_b2dWorld->SetContactListener(m_contactListener);
+	m_b2dWorld->Step(1, 10, 10);
 
 
 #ifdef DEBUG_BOX2D
@@ -97,7 +98,27 @@ void GameLayer::setupBackground(){
 void GameLayer::update(float delta )
 {
    // Updates the physics simulation for 10 iterations for velocity/position
-    m_b2dWorld->Step(delta, 10, 10);
+   
+	m_b2dWorld->Step(delta, 10, 10);
+	std::vector<b2Body*> bodiesToDestroy;
+
+	for(b2Body *b = m_b2dWorld->GetBodyList(); b; b=b->GetNext()) {    
+		if (b->GetUserData() != NULL) {
+			CCSprite *ballData = (CCSprite *)b->GetUserData();
+			ballData->setPositionX(b->GetPosition().x * PTM_RATIO);
+			ballData->setPositionY(b->GetPosition().y * PTM_RATIO);
+
+			//ballData->setRotation(-1 * CC_RADIANS_TO_DEGREES(b->GetAngle()));
+		}else{
+			bodiesToDestroy.push_back(b);
+		}        
+    }
+
+	for(std::vector<b2Body*>::iterator it = bodiesToDestroy.begin(); it != bodiesToDestroy.end(); ++it){
+		m_b2dWorld->DestroyBody(*it);
+	}
+
+
 	if(keyboard->wasKeyPressed(InputKey::Key_Space) || 
 		keyboard->wasKeyPressed(InputKey::Key_Up)){
 			player->jump();
@@ -109,6 +130,8 @@ void GameLayer::update(float delta )
 		player->moveRight();
 	}
 
+
+
 }
 
 void GameLayer::spawnRock(float delta){
@@ -116,7 +139,7 @@ void GameLayer::spawnRock(float delta){
 
 	Rock* rock = new Rock(m_b2dWorld);
 	int x = (rand() % (int)winSize.width-60) + 30;
-	rock->setPosition(ccp(x, winSize.height + 50));
+	rock->setStartPosition(ccp(x, winSize.height + 50));
 
 	this->addChild(rock, zRock);
 }
@@ -125,7 +148,7 @@ void GameLayer::setupGround(){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	ground = new Ground(m_b2dWorld);
-	ground->setPosition(ccp(winSize.width/2, 0));
+	ground->setStartPosition(ccp(winSize.width/2, 0));
 
 	this->addChild(ground, zGround);
 }
@@ -136,8 +159,8 @@ void GameLayer::setupWalls(){
 	wallLeft = new Wall(m_b2dWorld);
 	wallRight = new Wall(m_b2dWorld);
 
-	wallLeft->setPosition(ccp(0, 0));
-	wallRight->setPosition(ccp(winSize.width, 0));
+	wallLeft->setStartPosition(ccp(0, 0));
+	wallRight->setStartPosition(ccp(winSize.width, 0));
 
 	this->addChild(wallLeft);
 	this->addChild(wallRight);
@@ -148,7 +171,7 @@ void GameLayer::setupPlayer(){
 
 	player = new Player(m_b2dWorld);
 
-	player->setPosition(ccp(winSize.width/2, 90));
+	player->setStartPosition(ccp(winSize.width/2, 90));
 	this->addChild(player, zPlayer);
 }
 
@@ -156,7 +179,7 @@ void GameLayer::setupFinish(){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	Finish* finish = new Finish(m_b2dWorld);
-	finish->setPosition(ccp(winSize.width/2, winSize.height));
+	finish->setStartPosition(ccp(winSize.width/2, winSize.height));
 	this->addChild(finish, zFinish);
 }
 

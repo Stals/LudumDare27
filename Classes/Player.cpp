@@ -7,6 +7,8 @@ Player::Player(b2World* world):GameObject(world, PlayerType), jumpsLeft(MAX_JUMP
 	this->addChild(sprite);
 	this->setupBody();
 	this->autorelease();
+
+	this->scheduleUpdate();
 }
 
 Player::~Player(){
@@ -111,4 +113,5 @@ void Player::update(float dt){
 	}else{
 		body->ApplyForceToCenter(b2Vec2(0.0f, -9.8f));
 	}
+
 }

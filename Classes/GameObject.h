@@ -21,13 +21,11 @@ public:
 
 	virtual void resolveCollision(GameObject* other) = 0;
 
-	virtual void setPosition(const cocos2d::CCPoint& pos);
+	virtual void setStartPosition(const cocos2d::CCPoint& pos);
 protected:
 	ObjectType objectType;
 	b2Body* body;
 	b2World* world;
 
 	virtual void setupBody() = 0;
-
-	virtual void update(float dt);
 };

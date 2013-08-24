@@ -8,17 +8,17 @@ GameObject::GameObject(b2World* world, ObjectType type){
 	this->world = world;
 	this->objectType = type;
 
-	this->scheduleUpdate();
 }
 
 GameObject::~GameObject(){
+	body->SetUserData(NULL);
 }
 
 ObjectType GameObject::getType(){
 	return objectType;
 }
 
-void GameObject::setPosition(const CCPoint& pos){
+void GameObject::setStartPosition(const CCPoint& pos){
 	CCSprite::setPosition(pos);
 	b2Vec2 b2Position = b2Vec2(pos.x/PTM_RATIO,
 								pos.y/PTM_RATIO);
@@ -27,10 +27,3 @@ void GameObject::setPosition(const CCPoint& pos){
 }
 
 
-
-void GameObject::update(float dt){
-	b2Vec2 newPos = body->GetPosition();
-
-	this->setPositionX(newPos.x * PTM_RATIO);
-	this->setPositionY(newPos.y * PTM_RATIO);
-}
