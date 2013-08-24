@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+#define MAX_JUMPS 1
+
 class Player : public GameObject{
 public:
 	Player(b2World* world);
@@ -14,8 +16,8 @@ public:
 
 protected:
 	cocos2d::CCSprite *sprite;
+	int jumpsLeft;
 
 	virtual void setupBody();
 	virtual void update(float dt);
 };
-

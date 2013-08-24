@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Constants.h"
 
-Player::Player(b2World* world):GameObject(world, PlayerType)
+Player::Player(b2World* world):GameObject(world, PlayerType), jumpsLeft(MAX_JUMPS)
 {
 	sprite = CCSprite::create("Player.png");
 	this->addChild(sprite);
@@ -17,6 +17,15 @@ void Player::resolveCollision(GameObject* other){
 	if(other->getType() == RockType){
 		//CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/rock_hit_ground.wav");
 		//this->removeFromParentAndCleanup(true);
+	}
+
+	switch(other->getType()){
+		case RockType: 
+		case GroundType:
+			jumpsLeft = MAX_JUMPS; 
+			break;
+		default:
+			;
 	}
 }
 
@@ -42,16 +51,20 @@ void Player::setupBody(){
 
 
 void Player::jump(){
-	b2Vec2 currentVelocity = body->GetLinearVelocity();
-	if(currentVelocity.y < 0){
-		currentVelocity.y = 0;
+	if(jumpsLeft > 0){
+		--jumpsLeft;
+
+		b2Vec2 currentVelocity = body->GetLinearVelocity();
+		if(currentVelocity.y < 0){
+			currentVelocity.y = 0;
+		}
+		body->SetLinearVelocity(currentVelocity);
+
+		b2Vec2 force = b2Vec2(0.f, 15.0/MAX_JUMPS);
+		b2Vec2 point = body->GetPosition();
+
+		body->ApplyLinearImpulse(force, point);
 	}
-	body->SetLinearVelocity(currentVelocity);
-
-	b2Vec2 force = b2Vec2(0.f, 15.0);
-	b2Vec2 point = body->GetPosition();
-
-	body->ApplyLinearImpulse(force, point);
 }
 
 void Player::moveLeft(){
