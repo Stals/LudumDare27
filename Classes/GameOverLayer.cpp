@@ -1,11 +1,11 @@
 #include "GameOverLayer.h"
 
-GameOverLayer::GameOverLayer(GameOverType type): type(type){
+GameOverLayer::GameOverLayer(GameOverType type, CCObject *target, SEL_MenuHandler selector): type(type){
 	CCLayer::init();
 	this->setTouchEnabled(true);
 	setupBackground();
 	setupLabel();
-	setupButton();
+	setupButton(target, selector);
 }
 
 void GameOverLayer::setupBackground(){
@@ -37,6 +37,21 @@ void GameOverLayer::setupLabel(){
 	this->addChild(label);
 }
 
-void GameOverLayer::setupButton(){
+void GameOverLayer::setupButton(CCObject *target, SEL_MenuHandler selector){
+	CCSprite *playAgain = CCSprite::create("play_again.png");
+	CCSprite *playAgainSelected = CCSprite::create("play_again_selected.png");
+	CCMenuItemSprite *newGameButton = CCMenuItemSprite::create(playAgain, playAgainSelected, playAgain,
+		target, selector);
 
+
+	CCMenu* menu = CCMenu::create(newGameButton,  NULL);
+	menu->alignItemsVerticallyWithPadding(20);
+
+
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	// Set position of menu to be below the title text
+	menu->setPosition(ccp(winSize.width/2, (winSize.height/2) - 100));
+
+	// Add menu to layer
+	this->addChild(menu, 2);
 }

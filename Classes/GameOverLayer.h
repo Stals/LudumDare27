@@ -12,14 +12,13 @@ enum GameOverType{
 class GameOverLayer : public cocos2d::CCLayer
 {
 public:
-	GameOverLayer(GameOverType type);
-
+	GameOverLayer(GameOverType type, CCObject *target, SEL_MenuHandler selector);
 
 private:
 	GameOverType type;
 
 	void setupBackground();
 	void setupLabel();
-	void setupButton();
+	void setupButton(CCObject *target, SEL_MenuHandler selector);
 
 };

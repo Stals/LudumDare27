@@ -62,7 +62,7 @@ bool GameLayer::init()
 	setTouchEnabled(true);
     scheduleUpdate();
 	schedule(schedule_selector(GameLayer::spawnRock), 0.25);
-	endGame(GameOverType::PlayerLooseRock);
+	//endGame(GameOverType::PlayerLooseRock);
 
     return true;
 }
@@ -130,9 +130,6 @@ void GameLayer::update(float delta )
 	if(keyboard->isKeyDown(InputKey::Key_Right)){
 		player->moveRight();
 	}
-
-
-
 }
 
 void GameLayer::spawnRock(float delta){
@@ -188,15 +185,14 @@ void GameLayer::setupTimer(){
 
 }
 
-void GameLayer::restart(){
-	CCScene *pScene = GameLayer::scene();
-	CCDirector::sharedDirector()->runWithScene(pScene);
+void GameLayer::restart(CCObject *pSender){
+	CCDirector::sharedDirector()->replaceScene(GameLayer::scene());
 }
 
 void GameLayer::endGame(GameOverType type){
 	// TODO enable fullspeed
 
-	GameOverLayer* gameOverLayer = new GameOverLayer(type);
+	GameOverLayer* gameOverLayer = new GameOverLayer(type, this, menu_selector(GameLayer::restart));
 	gameOverLayer->autorelease();
 
 	this->addChild(gameOverLayer, zGameOver);
