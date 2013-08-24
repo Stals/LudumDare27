@@ -10,6 +10,16 @@ USING_NS_CC;
 #include "B2DebugDraw/B2DebugDrawLayer.h"
 #endif
 
+GameLayer::~GameLayer(){
+	/*b2World *m_b2dWorld;
+    CContactListener *m_contactListener;
+	Ground* ground;
+	Wall* wallLeft;
+	Wall* wallRight;
+	Player* player;
+	Keyboard* keyboard;*/
+}
+
 
 CCScene* GameLayer::scene()
 {
@@ -43,6 +53,7 @@ bool GameLayer::init()
 	setupBackground();
 	setupWorld();
 	setupGround();
+	setupWalls();
 	setupPlayer();
 	setupFinish();
 	setupTimer();
@@ -116,6 +127,19 @@ void GameLayer::setupGround(){
 	ground->setPosition(ccp(winSize.width/2, 0));
 
 	this->addChild(ground, zGround);
+}
+
+void GameLayer::setupWalls(){
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
+	wallLeft = new Wall(m_b2dWorld);
+	wallRight = new Wall(m_b2dWorld);
+
+	wallLeft->setPosition(ccp(0, 0));
+	wallRight->setPosition(ccp(winSize.width, 0));
+
+	this->addChild(wallLeft);
+	this->addChild(wallRight);
 }
 
 void GameLayer::setupPlayer(){

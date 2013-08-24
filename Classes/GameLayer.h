@@ -9,10 +9,12 @@ using namespace cocos2d;
 #include "Ground.h"
 #include "Player.h"
 #include "Keyboard.h"
+#include "Wall.h"
 
 class GameLayer : public cocos2d::CCLayer
 {
 public:
+	~GameLayer();
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
 	void update(float dt);	
@@ -24,6 +26,8 @@ private:
 	b2World *m_b2dWorld;
     CContactListener *m_contactListener;
 	Ground* ground;
+	Wall* wallLeft;
+	Wall* wallRight;
 	Player* player;
 	Keyboard* keyboard;
 
@@ -32,6 +36,7 @@ private:
 	void setupBackground();
 	void spawnRock(float delta);
 	void setupGround();
+	void setupWalls();
 	void setupPlayer();
 	void setupFinish();
 	void setupTimer();
