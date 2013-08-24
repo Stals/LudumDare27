@@ -15,11 +15,15 @@ TimerSprite::TimerSprite(int seconds, int fontSize, ccColor3B color){
 TimerSprite::~TimerSprite(){
 }
 
-void TimerSprite::setupLabel(int fontSize, ccColor3B color){
-	timerLabel = CCLabelTTF::create(toString(currectSeconds).c_str(), "arial_bold", fontSize);
+void TimerSprite::setupLabel(int fontSize, ccColor3B color){ //Quicksand_Bold
+	timerLabel = CCLabelTTF::create(toString(currectSeconds).c_str(), "fonts/Quicksand_Bold", fontSize, CCSizeMake(200,200), cocos2d::CCTextAlignment::kCCTextAlignmentCenter);
 	timerLabel->setColor(color);
 	timerLabel->setOpacity(127);
+	timerLabel->setAnchorPoint(ccp(0.5,0.5));
+	timerLabel->setPositionX(50);
 	this->addChild(timerLabel);
+	
+	
 }
 
 void TimerSprite::setUpdateTime(float updateTime){

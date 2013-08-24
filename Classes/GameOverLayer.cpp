@@ -29,7 +29,7 @@ void GameOverLayer::setupLabel(){
 		break;
 	}
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-	CCLabelTTF* label = CCLabelTTF::create(message.c_str(), "arial", 25);
+	CCLabelTTF* label = CCLabelTTF::create(message.c_str(), "fonts/Quicksand_Bold", 25);
 	label->setColor(ccc3(255, 255, 255));
 
 	label->setPosition(ccp(winSize.width/2, (winSize.height/2) + 100));
