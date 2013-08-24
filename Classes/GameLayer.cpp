@@ -1,8 +1,7 @@
 #include "GameLayer.h"
 #include "Constants.h"
 #include "Rock.h"
-#include "Ground.h"
-#include "Player.h"
+
 
 
 USING_NS_CC;
@@ -40,6 +39,7 @@ bool GameLayer::init()
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
+	setupKeyboard();
 	setupBackground();
 	setupWorld();
 	setupGround();
@@ -53,6 +53,10 @@ bool GameLayer::init()
 	schedule(schedule_selector(GameLayer::spawnRock), 0.25);
 	spawnRock(0);
     return true;
+}
+
+void GameLayer::setupKeyboard(){
+	keyboard = new Keyboard;
 }
 
 
@@ -82,7 +86,18 @@ void GameLayer::update(float delta )
 {
    // Updates the physics simulation for 10 iterations for velocity/position
     m_b2dWorld->Step(delta, 10, 10);
+	if(keyboard->wasKeyPressed(InputKey::Key_Space) || 
+		keyboard->wasKeyPressed(InputKey::Key_Up)){
+			player->jump();
 	}
+	if(keyboard->isKeyDown(InputKey::Key_Left)){
+		player->moveLeft();
+	}
+	if(keyboard->isKeyDown(InputKey::Key_Right)){
+		player->moveRight();
+	}
+
+}
 
 void GameLayer::spawnRock(float delta){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -97,14 +112,19 @@ void GameLayer::spawnRock(float delta){
 void GameLayer::setupGround(){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
-	Ground* ground = new Ground(m_b2dWorld);
+	ground = new Ground(m_b2dWorld);
 	ground->setPosition(ccp(winSize.width/2, 0));
 
 	this->addChild(ground, zGround);
 }
 
 void GameLayer::setupPlayer(){
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
+	player = new Player(m_b2dWorld);
+
+	player->setPosition(ccp(winSize.width/2, 50));
+	this->addChild(player, zPlayer);
 }
 
 void GameLayer::setupFinish(){

@@ -8,6 +8,10 @@ public:
 	
 	virtual void resolveCollision(GameObject* other);
 
+	void jump();
+	void moveLeft();
+	void moveRight();
+
 protected:
 	cocos2d::CCSprite *sprite;
 

@@ -6,6 +6,10 @@ using namespace cocos2d;
 #include "../external/Box2D/Box2D.h"
 #include "ContactListener.h"
 
+#include "Ground.h"
+#include "Player.h"
+#include "Keyboard.h"
+
 class GameLayer : public cocos2d::CCLayer
 {
 public:
@@ -19,10 +23,11 @@ public:
 private:
 	b2World *m_b2dWorld;
     CContactListener *m_contactListener;
-	//Ground* ground;
-	//Player* player;
+	Ground* ground;
+	Player* player;
+	Keyboard* keyboard;
 
-
+	void setupKeyboard();
 	void setupWorld();
 	void setupBackground();
 	void spawnRock(float delta);

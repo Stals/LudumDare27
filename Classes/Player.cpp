@@ -38,3 +38,26 @@ void Player::setupBody(){
     spriteShapeDef.isSensor = false;
     body->CreateFixture(&spriteShapeDef);
 }
+
+
+
+void Player::jump(){
+	b2Vec2 force = b2Vec2(0.f, 10.0);
+	b2Vec2 point = body->GetPosition();
+
+	body->ApplyLinearImpulse(force, point);
+}
+
+void Player::moveLeft(){
+	b2Vec2 force = b2Vec2(-0.5f, 0.f);
+	b2Vec2 point = body->GetPosition();
+
+	body->ApplyLinearImpulse(force, point);
+}
+
+void Player::moveRight(){
+	b2Vec2 force = b2Vec2(0.5f, 0.f);
+	b2Vec2 point = body->GetPosition();
+
+	body->ApplyLinearImpulse(force, point);
+}
