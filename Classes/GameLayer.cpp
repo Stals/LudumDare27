@@ -123,7 +123,7 @@ void GameLayer::setupPlayer(){
 
 	player = new Player(m_b2dWorld);
 
-	player->setPosition(ccp(winSize.width/2, 50));
+	player->setPosition(ccp(winSize.width/2, 90));
 	this->addChild(player, zPlayer);
 }
 
