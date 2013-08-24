@@ -65,7 +65,7 @@ void Player::jump(){
 		}
 		body->SetLinearVelocity(currentVelocity);
 
-		b2Vec2 force = b2Vec2(0.f, 15.0/MAX_JUMPS);
+		b2Vec2 force = b2Vec2(0.f, 12.0/MAX_JUMPS);
 		b2Vec2 point = body->GetPosition();
 
 		body->ApplyLinearImpulse(force, point);
