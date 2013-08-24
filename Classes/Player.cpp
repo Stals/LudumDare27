@@ -49,13 +49,29 @@ void Player::jump(){
 }
 
 void Player::moveLeft(){
+	b2Vec2 currentVelocity = body->GetLinearVelocity();
+	// reset velocity if we need to move in opotive side
+	if(currentVelocity.x > 0){
+		currentVelocity.x = 0;
+	}
+	body->SetLinearVelocity(currentVelocity);
+
+
 	b2Vec2 force = b2Vec2(-0.5f, 0.f);
 	b2Vec2 point = body->GetPosition();
 
 	body->ApplyLinearImpulse(force, point);
+
 }
 
 void Player::moveRight(){
+	b2Vec2 currentVelocity = body->GetLinearVelocity();
+	// reset velocity if we need to move in opotive side
+	if(currentVelocity.x < 0){
+		currentVelocity.x = 0;
+	}
+	body->SetLinearVelocity(currentVelocity);
+
 	b2Vec2 force = b2Vec2(0.5f, 0.f);
 	b2Vec2 point = body->GetPosition();
 
