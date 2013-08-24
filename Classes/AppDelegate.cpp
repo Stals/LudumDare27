@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+#include "Constants.h"
 #include "GameLayer.h"
 
 USING_NS_CC;
@@ -92,3 +93,8 @@ void AppDelegate::applicationWillEnterForeground() {
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }
+
+void AppDelegate::preloadSounds(){
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("sound/rock_hit_ground.wav");
+}
+

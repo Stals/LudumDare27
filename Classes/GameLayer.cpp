@@ -4,7 +4,7 @@
 #include "Ground.h"
 #include "Player.h"
 
-//#include "SimpleAudioEngine.h"
+
 USING_NS_CC;
 #define DEBUG_BOX2D
 #ifdef DEBUG_BOX2D

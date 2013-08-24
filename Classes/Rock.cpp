@@ -14,6 +14,7 @@ Rock::~Rock(){
 
 void Rock::resolveCollision(GameObject* other){
 	if(other->getType() == GroundType){
+		//CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/rock_hit_ground.wav");
 		this->removeFromParentAndCleanup(true);
 	}
 }
