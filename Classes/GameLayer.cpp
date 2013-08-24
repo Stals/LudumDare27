@@ -30,7 +30,7 @@ CCScene* GameLayer::scene()
     GameLayer *layer = GameLayer::create();
 
     // add layer as a child to scene
-    scene->addChild(layer);
+    scene->addChild(layer, 0, 1337);
 
     // return the scene
     return scene;
@@ -62,7 +62,8 @@ bool GameLayer::init()
 	setTouchEnabled(true);
     scheduleUpdate();
 	schedule(schedule_selector(GameLayer::spawnRock), 0.25);
-	spawnRock(0);
+	endGame(GameOverType::PlayerLooseRock);
+
     return true;
 }
 
@@ -190,4 +191,13 @@ void GameLayer::setupTimer(){
 void GameLayer::restart(){
 	CCScene *pScene = GameLayer::scene();
 	CCDirector::sharedDirector()->runWithScene(pScene);
+}
+
+void GameLayer::endGame(GameOverType type){
+	// TODO enable fullspeed
+
+	GameOverLayer* gameOverLayer = new GameOverLayer(type);
+	gameOverLayer->autorelease();
+
+	this->addChild(gameOverLayer, zGameOver);
 }

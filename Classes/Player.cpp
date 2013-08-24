@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "Constants.h"
+#include "GameLayer.h"
+
 
 Player::Player(b2World* world):GameObject(world, PlayerType), jumpsLeft(MAX_JUMPS)
 {
@@ -27,7 +29,8 @@ void Player::resolveCollision(GameObject* other){
 			jumpsLeft = MAX_JUMPS; 
 			break;
 		case FinishType:
-			//this->removeFromParentAndCleanup(true);
+			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
+			this->removeFromParentAndCleanup(true);
 			break;
 		default:
 			;

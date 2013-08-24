@@ -10,6 +10,7 @@ using namespace cocos2d;
 #include "Player.h"
 #include "Keyboard.h"
 #include "Wall.h"
+#include "GameOverLayer.h"
 
 class GameLayer : public cocos2d::CCLayer
 {
@@ -21,6 +22,8 @@ public:
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* scene();   
+
+	void endGame(GameOverType type);
 
 private:
 	b2World *m_b2dWorld;
