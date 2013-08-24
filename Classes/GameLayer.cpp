@@ -61,7 +61,7 @@ bool GameLayer::init()
 
 	setTouchEnabled(true);
     scheduleUpdate();
-	schedule(schedule_selector(GameLayer::spawnRock), 0.25);
+	schedule(schedule_selector(GameLayer::spawnRock), 0.25/1.5);
 	//endGame(GameOverType::PlayerLooseRock);
 
     return true;
