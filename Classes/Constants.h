@@ -11,6 +11,7 @@ enum zOrder{
 	zBackground,
 	zGround,
 	zFinish,
+	zTimer,
 	zRock,
 	zPlayer,
 	zGameOver

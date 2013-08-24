@@ -2,7 +2,7 @@
 #include "Constants.h"
 #include "Rock.h"
 #include "Finish.h"
-
+#include "Timer.h"
 
 USING_NS_CC;
 //#define DEBUG_BOX2D
@@ -182,7 +182,13 @@ void GameLayer::setupFinish(){
 }
 
 void GameLayer::setupTimer(){
+	TimerSprite* timer = new TimerSprite(10, 64, ccc3(127, 127, 127));
+	timer->setOpacity(0.5f);
 
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	timer->setPosition(ccp(winSize.width/2, winSize.height/2));
+	timer->setUpdateTime(1.f);
+	this->addChild(timer, zTimer);
 }
 
 void GameLayer::restart(CCObject *pSender){
