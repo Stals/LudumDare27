@@ -24,6 +24,9 @@ void Player::resolveCollision(GameObject* other){
 		case GroundType:
 			jumpsLeft = MAX_JUMPS; 
 			break;
+		case FinishType:
+			//this->removeFromParentAndCleanup(true);
+			break;
 		default:
 			;
 	}

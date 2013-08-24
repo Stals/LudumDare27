@@ -1,7 +1,7 @@
 #include "GameLayer.h"
 #include "Constants.h"
 #include "Rock.h"
-
+#include "Finish.h"
 
 
 USING_NS_CC;
@@ -153,7 +153,11 @@ void GameLayer::setupPlayer(){
 }
 
 void GameLayer::setupFinish(){
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
+	Finish* finish = new Finish(m_b2dWorld);
+	finish->setPosition(ccp(winSize.width/2, winSize.height));
+	this->addChild(finish, zFinish);
 }
 
 void GameLayer::setupTimer(){
