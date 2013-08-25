@@ -51,6 +51,9 @@ private:
 
 	void timeUp(CCObject *pSender);
 	void restart(CCObject *pSender);
+
+	// 1 - full speed 0.1 - 1/10 of normal speed
+	void setGameSpeed(float scale);
 };
 
 

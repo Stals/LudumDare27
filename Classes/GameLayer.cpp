@@ -64,6 +64,8 @@ bool GameLayer::init()
 	schedule(schedule_selector(GameLayer::spawnRock), 0.25/1.5);
 	//endGame(GameOverType::PlayerLooseRock);
 
+	setGameSpeed(0.1f);
+
     return true;
 }
 
@@ -202,10 +204,26 @@ void GameLayer::restart(CCObject *pSender){
 
 void GameLayer::endGame(GameOverType type){
 	// TODO enable fullspeed
+	setGameSpeed(2.f);
+	schedule(schedule_selector(GameLayer::spawnRock), 0.04f);
 	timer->stop();
 
 	GameOverLayer* gameOverLayer = new GameOverLayer(type, this, menu_selector(GameLayer::restart));
 	gameOverLayer->autorelease();
 
 	this->addChild(gameOverLayer, zGameOver);
+}
+
+
+void GameLayer::setGameSpeed(float scale){
+	float normalGravity = -9.8f;
+
+	b2Vec2 gravity = b2Vec2(0.0f, normalGravity * scale);
+	m_b2dWorld->SetGravity(gravity);
+
+
+	float normalSpawnRate = 0.0166666;
+	schedule(schedule_selector(GameLayer::spawnRock), normalSpawnRate * (1/scale));
+
+	timer->setUpdateTime(0.1 / scale);
 }
