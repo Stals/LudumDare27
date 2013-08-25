@@ -3,7 +3,7 @@
 #include "GameLayer.h"
 
 
-Player::Player(b2World* world, bool secondPlayer):GameObject(world, PlayerType), isOnGround(false)
+Player::Player(b2World* world, bool secondPlayer):GameObject(world, PlayerType), groundObjectsTouching(0)
 {
 	if(!secondPlayer){
 		sprite = CCSprite::create("Player.png");
@@ -32,7 +32,8 @@ void Player::resolveCollision(GameObject* other){
 	switch(other->getType()){
 		case RockType: 
 		case GroundType:
-			isOnGround = true;
+		case PlayerType:
+			++groundObjectsTouching;
 			break;
 		case FinishType:
 			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
@@ -50,7 +51,10 @@ void Player::resolveEndCollision(GameObject* other){
 	switch(other->getType()){
 		case RockType: 
 		case GroundType:
-			isOnGround = false;
+		case PlayerType:
+			if(groundObjectsTouching > 0){
+			--groundObjectsTouching;
+			}
 	}
 }
 
@@ -79,7 +83,8 @@ void Player::setupBody(){
 
 
 void Player::jump(){
-	if(isOnGround){
+	if(groundObjectsTouching > 0){
+		
 		b2Vec2 currentVelocity = body->GetLinearVelocity();
 		if(currentVelocity.y < 0){
 			currentVelocity.y = 0;
@@ -123,6 +128,9 @@ void Player::moveRight(){
 	body->ApplyLinearImpulse(force, point);
 }
 
+bool Player::isDead(){
+	return sprite->isVisible();
+}
 
 void Player::update(float dt){
 	GameObject::update(dt);

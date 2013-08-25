@@ -14,9 +14,11 @@ public:
 	void moveLeft();
 	void moveRight();
 
+	bool isDead();
+
 protected:
 	cocos2d::CCSprite *sprite;
-	bool isOnGround;
+	int groundObjectsTouching;
 
 	virtual void setupBody();
 	virtual void update(float dt);

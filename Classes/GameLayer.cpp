@@ -80,7 +80,7 @@ bool GameLayer::init()
 	//endGame(GameOverType::None);
 
 	//setGameSpeed(0.075f);
-	//slowTime(currentGameSpeed);
+	slowTime(currentGameSpeed);
 	
 
     return true;
@@ -135,6 +135,7 @@ void GameLayer::update(float delta )
     }
 
 	for(std::vector<b2Body*>::iterator it = bodiesToDestroy.begin(); it != bodiesToDestroy.end(); ++it){
+		b2Contact* contact = (*it)->GetContactList()->contact;	
 		m_b2dWorld->DestroyBody(*it);
 	}
 
@@ -246,15 +247,31 @@ void GameLayer::restart(CCObject *pSender){
 }
 
 void GameLayer::endGame(GameOverType type){
-	// TODO enable fullspeed
-	setGameSpeed(2.f);
-	schedule(schedule_selector(GameLayer::spawnRock), 0.04f);
-	timer->stop();
+	// only add one layer
+	if(!this->getChildByTag(zGameOver)){
 
-	GameOverLayer* gameOverLayer = new GameOverLayer(type, this, menu_selector(GameLayer::restart));
-	gameOverLayer->autorelease();
+		bool show = true;
 
-	this->addChild(gameOverLayer, zGameOver);
+		if ((type == GameOverType::PlayerLooseRock) && twoPlayers){
+			if(playerOne->isDead() && playerTwo->isDead()){
+				show = true;
+			}else{
+				// dont show if not both player are dead
+				show = false;
+			}
+		}
+	
+		if(show){
+			setGameSpeed(2.f);
+			schedule(schedule_selector(GameLayer::spawnRock), 0.04f);
+			timer->stop();
+
+			GameOverLayer* gameOverLayer = new GameOverLayer(type, this, menu_selector(GameLayer::restart));
+			gameOverLayer->autorelease();
+
+			this->addChild(gameOverLayer, zGameOver, zGameOver);
+		}
+	}
 }
 
 
