@@ -33,6 +33,7 @@ void Player::resolveCollision(GameObject* other){
 			//this->removeFromParentAndCleanup(true);
 			// So that body will be removed and sprite will stay on finish
 			this->body->SetUserData(NULL);
+			this->sprite->setVisible(false);
 			break;
 		default:
 			;
