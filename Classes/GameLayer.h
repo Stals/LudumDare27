@@ -42,6 +42,7 @@ private:
 	float currentGameSpeed;
 
 	static bool twoPlayers;
+	static bool firstLunch;
 
 	void setupKeyboard();
 	void setupWorld();
@@ -65,6 +66,7 @@ private:
 	void slowTime(float currentTime);
 
 	void startOnePlayer(CCObject *pSender);
+	void startTwoPlayer(CCObject *pSender);
 };
 
 

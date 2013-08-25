@@ -11,6 +11,7 @@ USING_NS_CC;
 #endif
 
 bool GameLayer::twoPlayers = false;
+bool GameLayer::firstLunch = true;
 
 GameLayer::~GameLayer(){
 	/*b2World *m_b2dWorld;
@@ -64,11 +65,7 @@ bool GameLayer::init()
 	setupWorld();
 	setupGround();
 	setupWalls();
-	setupPlayer(false);
-	
-	if(twoPlayers){
-		setupPlayer(true);
-	}
+
 
 	setupFinish();
 	setupTimer();
@@ -77,10 +74,22 @@ bool GameLayer::init()
 	setTouchEnabled(true);
     scheduleUpdate();
 	schedule(schedule_selector(GameLayer::spawnRock), 0.25/1.5);
-	//endGame(GameOverType::None);
+	
+	if(firstLunch){
+		endGame(GameOverType::None);
+		firstLunch = false;
+	}else{
+		setupPlayer(false);
+	
+		if(twoPlayers){
+			setupPlayer(true);
+		}
+
+		slowTime(currentGameSpeed);
+	}
 
 	//setGameSpeed(0.075f);
-	slowTime(currentGameSpeed);
+	
 	
 
     return true;
@@ -209,12 +218,12 @@ void GameLayer::setupPlayer(bool second){
 	if(!second){
 		playerOne = new Player(m_b2dWorld, false);
 
-		playerOne->setStartPosition(ccp(winSize.width/2 + 100, 90));
+		playerOne->setStartPosition(ccp(winSize.width/2 - 100, 90));
 		this->addChild(playerOne, zPlayer);
 	}else{
 		playerTwo = new Player(m_b2dWorld, true);
 
-		playerTwo->setStartPosition(ccp(winSize.width/2 - 100, 90));
+		playerTwo->setStartPosition(ccp(winSize.width/2 + 100, 90));
 		this->addChild(playerTwo, zPlayer);
 	}
 }
@@ -266,7 +275,7 @@ void GameLayer::endGame(GameOverType type){
 			schedule(schedule_selector(GameLayer::spawnRock), 0.04f);
 			timer->stop();
 
-			GameOverLayer* gameOverLayer = new GameOverLayer(type, this, menu_selector(GameLayer::restart));
+			GameOverLayer* gameOverLayer = new GameOverLayer(type, this, menu_selector(GameLayer::startOnePlayer), menu_selector(GameLayer::startTwoPlayer));
 			gameOverLayer->autorelease();
 
 			this->addChild(gameOverLayer, zGameOver, zGameOver);
@@ -296,7 +305,16 @@ void GameLayer::slowTime(float currentTime){
 	this->unschedule(schedule_selector(GameLayer::slowTime));
 
 	if( currentGameSpeed > 0.075f){
-		std::cout<<currentGameSpeed << std::endl;
 		this->schedule(schedule_selector(GameLayer::slowTime), 0.075f);
 	}
+}
+
+void GameLayer::startOnePlayer(CCObject *pSender){
+	GameLayer::setTwoPlayers(false);
+	restart(pSender);
+}
+
+void GameLayer::startTwoPlayer(CCObject *pSender){
+	GameLayer::setTwoPlayers(true);
+	restart(pSender);
 }

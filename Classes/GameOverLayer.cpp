@@ -1,12 +1,12 @@
 #include "GameOverLayer.h"
 
-GameOverLayer::GameOverLayer(GameOverType type, CCObject *target, SEL_MenuHandler selector): type(type){
+GameOverLayer::GameOverLayer(GameOverType type, CCObject *target, SEL_MenuHandler onePlayer, SEL_MenuHandler twoPlayers): type(type){
 	CCLayer::init();
 	this->setTouchEnabled(true);
 	setupBackground();
 	setupLabel();
 	setupTitle();
-	//setupButton(target, selector);
+	setupButton(target, onePlayer, twoPlayers);
 }
 
 void GameOverLayer::setupBackground(){
@@ -38,20 +38,27 @@ void GameOverLayer::setupLabel(){
 	this->addChild(label);
 }
 
-void GameOverLayer::setupButton(CCObject *target, SEL_MenuHandler selector){
-	CCSprite *playAgain = CCSprite::create("play_again.png");
-	CCSprite *playAgainSelected = CCSprite::create("play_again_selected.png");
-	CCMenuItemSprite *newGameButton = CCMenuItemSprite::create(playAgain, playAgainSelected, playAgain,
-		target, selector);
+void GameOverLayer::setupButton(CCObject *target, SEL_MenuHandler onePlayer, SEL_MenuHandler twoPlayers){
+	CCSprite *onePlayerUnselected = CCSprite::create("1Player_unselected.png");
+	CCSprite *onePlayerSelected = CCSprite::create("1Player_selected.png");
+	CCMenuItemSprite *onePlayerButton = CCMenuItemSprite::create(onePlayerUnselected, onePlayerSelected, onePlayerUnselected,
+		target, onePlayer);
 
 
-	CCMenu* menu = CCMenu::create(newGameButton,  NULL);
-	menu->alignItemsVerticallyWithPadding(20);
+	CCSprite *twoPlayerUnselected = CCSprite::create("2Players_unselected.png");
+	CCSprite *twoPlayerSelected = CCSprite::create("2Players_selected.png");
+	CCMenuItemSprite *twoPlayerButton = CCMenuItemSprite::create(twoPlayerUnselected, twoPlayerSelected, twoPlayerUnselected,
+		target, twoPlayers);
+
+	CCMenu* menu = CCMenu::create(onePlayerButton, twoPlayerButton, NULL);
+
+
+	menu->alignItemsHorizontallyWithPadding(20);
 
 
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 	// Set position of menu to be below the title text
-	menu->setPosition(ccp(winSize.width/2, (winSize.height/2) - 100));
+	menu->setPosition(ccp(winSize.width/2, (winSize.height/2)));
 
 	// Add menu to layer
 	this->addChild(menu, 2);

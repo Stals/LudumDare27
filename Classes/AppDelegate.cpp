@@ -37,7 +37,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setAnimationInterval(1.0 / 60);
 
 
-	GameLayer::setTwoPlayers(true);
+	//GameLayer::setTwoPlayers(true);
 
     // create a scene. it's an autorelease object
     CCScene *pScene = GameLayer::scene();
