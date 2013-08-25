@@ -49,6 +49,7 @@ private:
     // implement the "static node()" method manually
     CREATE_FUNC(GameLayer);
 
+	void timeUp(CCObject *pSender);
 	void restart(CCObject *pSender);
 };
 

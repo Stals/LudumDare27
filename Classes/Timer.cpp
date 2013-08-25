@@ -15,6 +15,11 @@ TimerSprite::TimerSprite(int seconds, int fontSize, ccColor3B color){
 TimerSprite::~TimerSprite(){
 }
 
+void TimerSprite::setEndTimeCallback(CCObject *rec, SEL_MenuHandler selector){
+	this->listener = rec;
+	this->selector = selector;
+}
+
 void TimerSprite::setupLabel(int fontSize, ccColor3B color){ //Quicksand_Bold
 	timerLabel = CCLabelTTF::create(toString(currectSeconds).c_str(), "fonts/Quicksand_Bold", fontSize, CCSizeMake(200,200), cocos2d::CCTextAlignment::kCCTextAlignmentCenter);
 	timerLabel->setColor(color);
@@ -37,6 +42,13 @@ void TimerSprite::stop(){
 void TimerSprite::updateTime(float dt){
 	currectSeconds -= 0.1f;
 	timerLabel->setString(toString(currectSeconds).c_str());
+
+	if((currectSeconds > -0.01) && (currectSeconds < 0.01)){
+	    if (listener && selector)
+        {
+            (listener->*selector)(this);
+        }
+	}
 }
 
 

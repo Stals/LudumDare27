@@ -188,7 +188,12 @@ void GameLayer::setupTimer(){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 	timer->setPosition(ccp(60, winSize.height-160));
 	timer->setUpdateTime(1.f);
+	timer->setEndTimeCallback(this, menu_selector(GameLayer::timeUp));
 	this->addChild(timer, zTimer);
+}
+
+void GameLayer::timeUp(CCObject *pSender){
+	endGame(GameOverType::PlayerLooseTime);
 }
 
 void GameLayer::restart(CCObject *pSender){
