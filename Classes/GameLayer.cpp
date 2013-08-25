@@ -182,11 +182,11 @@ void GameLayer::setupFinish(){
 }
 
 void GameLayer::setupTimer(){
-	TimerSprite* timer = new TimerSprite(10, 64, ccc3(127, 127, 127));
+	TimerSprite* timer = new TimerSprite(10, 32, ccc3(127, 127, 127));
 	timer->setOpacity(0.5f);
 
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-	timer->setPosition(ccp(winSize.width/2, winSize.height/2));
+	timer->setPosition(ccp(60, winSize.height-160));
 	timer->setUpdateTime(1.f);
 	this->addChild(timer, zTimer);
 }

@@ -30,7 +30,9 @@ void Player::resolveCollision(GameObject* other){
 			break;
 		case FinishType:
 			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
-			this->removeFromParentAndCleanup(true);
+			//this->removeFromParentAndCleanup(true);
+			// So that body will be removed and sprite will stay on finish
+			this->body->SetUserData(NULL);
 			break;
 		default:
 			;
