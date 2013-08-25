@@ -22,4 +22,6 @@ protected:
 
 	virtual void setupBody();
 	virtual void update(float dt);
+
+	bool spikeIntercect(GameObject* other);
 };

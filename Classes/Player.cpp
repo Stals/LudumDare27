@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Constants.h"
 #include "GameLayer.h"
-
+#include "Rock.h"
 
 Player::Player(b2World* world, bool secondPlayer):GameObject(world, PlayerType), groundObjectsTouching(0)
 {
@@ -31,16 +31,21 @@ void Player::resolveCollision(GameObject* other){
 
 	switch(other->getType()){
 		case RockType: 
+			if(spikeIntercect(other)){
+				this->body->SetUserData(NULL);
+				this->sprite->setVisible(false);
+				((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerLooseRock);
+
+				break;
+			}
 		case GroundType:
 		case PlayerType:
 			++groundObjectsTouching;
 			break;
 		case FinishType:
-			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
-			//this->removeFromParentAndCleanup(true);
-			// So that body will be removed and sprite will stay on finish
 			this->body->SetUserData(NULL);
 			this->sprite->setVisible(false);
+			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
 			break;
 		default:
 			;
@@ -129,7 +134,7 @@ void Player::moveRight(){
 }
 
 bool Player::isDead(){
-	return sprite->isVisible();
+	return !sprite->isVisible();
 }
 
 void Player::update(float dt){
@@ -143,4 +148,13 @@ void Player::update(float dt){
 		body->ApplyForceToCenter(b2Vec2(0.0f, -9.8f));
 	}
 
+}
+
+bool Player::spikeIntercect(GameObject* other){
+	Rock* rock = (Rock*)other;
+	CCPoint location = rock->getPosition();
+	location.y -= 30;
+	CCPoint center = this->getPosition();
+
+    return (ccpDistance(center, location) < 15);
 }
