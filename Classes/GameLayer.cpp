@@ -10,6 +10,8 @@ USING_NS_CC;
 #include "B2DebugDraw/B2DebugDrawLayer.h"
 #endif
 
+bool GameLayer::twoPlayers = false;
+
 GameLayer::~GameLayer(){
 	/*b2World *m_b2dWorld;
     CContactListener *m_contactListener;
@@ -36,6 +38,10 @@ CCScene* GameLayer::scene()
     return scene;
 }
 
+void GameLayer::setTwoPlayers(bool twoPlayers){
+	GameLayer::twoPlayers = twoPlayers;
+}
+
 // on "init" you need to initialize your instance
 bool GameLayer::init()
 {
@@ -59,7 +65,11 @@ bool GameLayer::init()
 	setupGround();
 	setupWalls();
 	setupPlayer(false);
-	setupPlayer(true);
+	
+	if(twoPlayers){
+		setupPlayer(true);
+	}
+
 	setupFinish();
 	setupTimer();
 
@@ -70,7 +80,8 @@ bool GameLayer::init()
 	//endGame(GameOverType::PlayerLooseRock);
 
 	//setGameSpeed(0.075f);
-	slowTime(currentGameSpeed);
+	//slowTime(currentGameSpeed);
+	
 
     return true;
 }

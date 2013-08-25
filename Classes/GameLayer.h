@@ -23,6 +23,8 @@ public:
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* scene();   
+	static void setTwoPlayers(bool twoPlayers);
+
 
 	void endGame(GameOverType type);
 
@@ -39,7 +41,7 @@ private:
 	TimerSprite* timer;
 	float currentGameSpeed;
 
-	bool twoPlayers;
+	static bool twoPlayers;
 
 	void setupKeyboard();
 	void setupWorld();
@@ -61,6 +63,8 @@ private:
 	void setGameSpeed(float scale);
 
 	void slowTime(float currentTime);
+
+	void startOnePlayer(CCObject *pSender);
 };
 
 

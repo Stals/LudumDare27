@@ -6,7 +6,8 @@
 enum GameOverType{
 	PlayerLooseRock,
 	PlayerLooseTime,
-	PlayerWin
+	PlayerWin,
+	None
 };
 
 class GameOverLayer : public cocos2d::CCLayer
@@ -19,6 +20,7 @@ private:
 
 	void setupBackground();
 	void setupLabel();
+	void setupTitle();
 	void setupButton(CCObject *target, SEL_MenuHandler selector);
 
 };

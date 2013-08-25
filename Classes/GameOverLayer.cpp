@@ -5,7 +5,8 @@ GameOverLayer::GameOverLayer(GameOverType type, CCObject *target, SEL_MenuHandle
 	this->setTouchEnabled(true);
 	setupBackground();
 	setupLabel();
-	setupButton(target, selector);
+	setupTitle();
+	//setupButton(target, selector);
 }
 
 void GameOverLayer::setupBackground(){
@@ -32,7 +33,7 @@ void GameOverLayer::setupLabel(){
 	CCLabelTTF* label = CCLabelTTF::create(message.c_str(), "fonts/Quicksand_Bold", 25);
 	label->setColor(ccc3(255, 255, 255));
 
-	label->setPosition(ccp(winSize.width/2, (winSize.height/2) + 100));
+	label->setPosition(ccp(winSize.width/2, (winSize.height/2) + 175));
 
 	this->addChild(label);
 }
@@ -54,4 +55,12 @@ void GameOverLayer::setupButton(CCObject *target, SEL_MenuHandler selector){
 
 	// Add menu to layer
 	this->addChild(menu, 2);
+}
+
+void GameOverLayer::setupTitle(){
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	CCSprite *title = CCSprite::create("Title.png");
+	title->setPosition(ccp(winSize.width/2, winSize.height/2));
+
+	this->addChild(title, 0);
 }
