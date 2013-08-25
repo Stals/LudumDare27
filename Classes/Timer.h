@@ -12,6 +12,7 @@ public:
 
 	// default time is 1/10 of a second
 	void setUpdateTime(float updateTime);
+	void stop();
 
 private:
 	float currectSeconds;

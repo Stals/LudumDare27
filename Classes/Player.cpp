@@ -14,7 +14,7 @@ Player::Player(b2World* world):GameObject(world, PlayerType), jumpsLeft(MAX_JUMP
 }
 
 Player::~Player(){
-	world->DestroyBody(body);
+	//world->DestroyBody(body);
 }
 
 void Player::resolveCollision(GameObject* other){

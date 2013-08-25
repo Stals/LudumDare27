@@ -2,7 +2,7 @@
 #include "Constants.h"
 #include "Rock.h"
 #include "Finish.h"
-#include "Timer.h"
+
 
 USING_NS_CC;
 //#define DEBUG_BOX2D
@@ -182,7 +182,7 @@ void GameLayer::setupFinish(){
 }
 
 void GameLayer::setupTimer(){
-	TimerSprite* timer = new TimerSprite(10, 32, ccc3(127, 127, 127));
+	timer = new TimerSprite(10, 32, ccc3(127, 127, 127));
 	timer->setOpacity(0.5f);
 
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -197,6 +197,7 @@ void GameLayer::restart(CCObject *pSender){
 
 void GameLayer::endGame(GameOverType type){
 	// TODO enable fullspeed
+	timer->stop();
 
 	GameOverLayer* gameOverLayer = new GameOverLayer(type, this, menu_selector(GameLayer::restart));
 	gameOverLayer->autorelease();

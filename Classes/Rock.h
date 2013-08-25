@@ -9,6 +9,8 @@ public:
 	virtual void resolveCollision(GameObject* other);
 
 protected:
+	float scale;
+
 	virtual void setupBody();
 };
 

@@ -30,6 +30,10 @@ void TimerSprite::setUpdateTime(float updateTime){
 	this->schedule(schedule_selector(TimerSprite::updateTime), updateTime);
 }
 
+void TimerSprite::stop(){
+	this->unschedule(schedule_selector(TimerSprite::updateTime));
+}
+
 void TimerSprite::updateTime(float dt){
 	currectSeconds -= 0.1f;
 	timerLabel->setString(toString(currectSeconds).c_str());

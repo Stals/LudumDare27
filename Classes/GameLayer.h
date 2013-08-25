@@ -11,6 +11,7 @@ using namespace cocos2d;
 #include "Keyboard.h"
 #include "Wall.h"
 #include "GameOverLayer.h"
+#include "Timer.h"
 
 class GameLayer : public cocos2d::CCLayer
 {
@@ -33,6 +34,7 @@ private:
 	Wall* wallRight;
 	Player* player;
 	Keyboard* keyboard;
+	TimerSprite* timer;
 
 	void setupKeyboard();
 	void setupWorld();
