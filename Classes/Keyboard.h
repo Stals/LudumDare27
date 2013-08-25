@@ -6,7 +6,13 @@ enum InputKey{
 	Key_Right = s3eKeyAbsRight,
 	Key_Up = s3eKeyAbsUp,
 	Key_Down = s3eKeyAbsDown,
-	Key_Space = s3eKeySpace 
+
+	Key_Space = s3eKeySpace,
+	Key_A = s3eKeyA,
+	Key_W = s3eKeyW,
+	Key_D = s3eKeyD,
+
+	Key_R = s3eKeyR
 };
 
 class Keyboard{

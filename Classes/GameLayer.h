@@ -32,10 +32,14 @@ private:
 	Ground* ground;
 	Wall* wallLeft;
 	Wall* wallRight;
-	Player* player;
+	Player* playerOne;
+	Player* playerTwo;
+
 	Keyboard* keyboard;
 	TimerSprite* timer;
 	float currentGameSpeed;
+
+	bool twoPlayers;
 
 	void setupKeyboard();
 	void setupWorld();
@@ -43,7 +47,7 @@ private:
 	void spawnRock(float delta);
 	void setupGround();
 	void setupWalls();
-	void setupPlayer();
+	void setupPlayer(bool second);
 	void setupFinish();
 	void setupTimer();
 

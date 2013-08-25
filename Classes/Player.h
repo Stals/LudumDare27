@@ -5,7 +5,7 @@
 
 class Player : public GameObject{
 public:
-	Player(b2World* world);
+	Player(b2World* world, bool secondPlayer = false);
 	virtual ~Player();
 	
 	virtual void resolveCollision(GameObject* other);

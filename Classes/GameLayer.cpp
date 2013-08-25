@@ -49,6 +49,8 @@ bool GameLayer::init()
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
+	playerOne = NULL;
+	playerTwo = NULL;
 	currentGameSpeed = 1.75f;
 
 	setupKeyboard();
@@ -56,7 +58,8 @@ bool GameLayer::init()
 	setupWorld();
 	setupGround();
 	setupWalls();
-	setupPlayer();
+	setupPlayer(false);
+	setupPlayer(true);
 	setupFinish();
 	setupTimer();
 
@@ -124,17 +127,36 @@ void GameLayer::update(float delta )
 		m_b2dWorld->DestroyBody(*it);
 	}
 
+	if(playerOne){
+		if(keyboard->wasKeyPressed(InputKey::Key_Up)){
+			playerOne->jump();
+		}
+		if(keyboard->isKeyDown(InputKey::Key_Left)){
+			playerOne->moveLeft();
+		}
+		if(keyboard->isKeyDown(InputKey::Key_Right)){
+			playerOne->moveRight();
+		}
+	}
 
-	if(keyboard->wasKeyPressed(InputKey::Key_Space) || 
-		keyboard->wasKeyPressed(InputKey::Key_Up)){
-			player->jump();
+	if(playerTwo){
+		if(keyboard->wasKeyPressed(InputKey::Key_Space) ||
+			keyboard->wasKeyPressed(InputKey::Key_W)){
+			playerTwo->jump();
+		}
+		if(keyboard->isKeyDown(InputKey::Key_A)){
+			playerTwo->moveLeft();
+		}
+		if(keyboard->isKeyDown(InputKey::Key_D)){
+			playerTwo->moveRight();
+		}
 	}
-	if(keyboard->isKeyDown(InputKey::Key_Left)){
-		player->moveLeft();
+
+	if(keyboard->wasKeyPressed(InputKey::Key_R)){
+		this->restart(this);		
 	}
-	if(keyboard->isKeyDown(InputKey::Key_Right)){
-		player->moveRight();
-	}
+
+
 }
 
 void GameLayer::spawnRock(float delta){
@@ -169,13 +191,20 @@ void GameLayer::setupWalls(){
 	this->addChild(wallRight);
 }
 
-void GameLayer::setupPlayer(){
+void GameLayer::setupPlayer(bool second){
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
-	player = new Player(m_b2dWorld);
+	if(!second){
+		playerOne = new Player(m_b2dWorld, false);
 
-	player->setStartPosition(ccp(winSize.width/2, 90));
-	this->addChild(player, zPlayer);
+		playerOne->setStartPosition(ccp(winSize.width/2 + 100, 90));
+		this->addChild(playerOne, zPlayer);
+	}else{
+		playerTwo = new Player(m_b2dWorld, true);
+
+		playerTwo->setStartPosition(ccp(winSize.width/2 - 100, 90));
+		this->addChild(playerTwo, zPlayer);
+	}
 }
 
 void GameLayer::setupFinish(){

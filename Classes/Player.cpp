@@ -3,9 +3,15 @@
 #include "GameLayer.h"
 
 
-Player::Player(b2World* world):GameObject(world, PlayerType), jumpsLeft(MAX_JUMPS)
+Player::Player(b2World* world, bool secondPlayer):GameObject(world, PlayerType), jumpsLeft(MAX_JUMPS)
 {
-	sprite = CCSprite::create("Player.png");
+	if(!secondPlayer){
+		sprite = CCSprite::create("Player.png");
+	}else{
+		sprite = CCSprite::create("Player2.png");
+	}
+
+
 	this->addChild(sprite);
 	this->setupBody();
 	this->autorelease();
