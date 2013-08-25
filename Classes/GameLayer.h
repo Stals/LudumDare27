@@ -35,6 +35,7 @@ private:
 	Player* player;
 	Keyboard* keyboard;
 	TimerSprite* timer;
+	float currentGameSpeed;
 
 	void setupKeyboard();
 	void setupWorld();
@@ -54,6 +55,8 @@ private:
 
 	// 1 - full speed 0.1 - 1/10 of normal speed
 	void setGameSpeed(float scale);
+
+	void slowTime(float currentTime);
 };
 
 

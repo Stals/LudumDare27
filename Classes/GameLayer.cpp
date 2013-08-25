@@ -49,6 +49,8 @@ bool GameLayer::init()
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
+	currentGameSpeed = 1.75f;
+
 	setupKeyboard();
 	setupBackground();
 	setupWorld();
@@ -64,7 +66,8 @@ bool GameLayer::init()
 	schedule(schedule_selector(GameLayer::spawnRock), 0.25/1.5);
 	//endGame(GameOverType::PlayerLooseRock);
 
-	setGameSpeed(0.1f);
+	//setGameSpeed(0.075f);
+	slowTime(currentGameSpeed);
 
     return true;
 }
@@ -216,6 +219,8 @@ void GameLayer::endGame(GameOverType type){
 
 
 void GameLayer::setGameSpeed(float scale){
+	this->currentGameSpeed = scale;
+
 	float normalGravity = -9.8f;
 
 	b2Vec2 gravity = b2Vec2(0.0f, normalGravity * scale);
@@ -226,4 +231,15 @@ void GameLayer::setGameSpeed(float scale){
 	schedule(schedule_selector(GameLayer::spawnRock), normalSpawnRate * (1/scale));
 
 	timer->setUpdateTime(0.1 / scale);
+}
+
+void GameLayer::slowTime(float currentTime){
+	setGameSpeed(currentGameSpeed * 0.9);
+
+	this->unschedule(schedule_selector(GameLayer::slowTime));
+
+	if( currentGameSpeed > 0.075f){
+		std::cout<<currentGameSpeed << std::endl;
+		this->schedule(schedule_selector(GameLayer::slowTime), 0.075f);
+	}
 }
