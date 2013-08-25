@@ -6,7 +6,7 @@ Rock::Rock(b2World* world):GameObject(world, RockType)
 	CCSprite* sprite = CCSprite::create("Rock.png");
 
 	float a = 1.f;
-	float b = 2.f;
+	float b = 1.7f;
 	scale = ((b-a)*((float)rand()/RAND_MAX))+a;
 	//sprite->getTexture()->setAliasTexParameters();
 	sprite->setScale(scale);
