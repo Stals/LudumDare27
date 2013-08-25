@@ -3,7 +3,7 @@
 #include "GameLayer.h"
 
 
-Player::Player(b2World* world, bool secondPlayer):GameObject(world, PlayerType), jumpsLeft(MAX_JUMPS)
+Player::Player(b2World* world, bool secondPlayer):GameObject(world, PlayerType), isOnGround(false)
 {
 	if(!secondPlayer){
 		sprite = CCSprite::create("Player.png");
@@ -32,7 +32,7 @@ void Player::resolveCollision(GameObject* other){
 	switch(other->getType()){
 		case RockType: 
 		case GroundType:
-			jumpsLeft = MAX_JUMPS; 
+			isOnGround = true;
 			break;
 		case FinishType:
 			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
@@ -43,6 +43,14 @@ void Player::resolveCollision(GameObject* other){
 			break;
 		default:
 			;
+	}
+}
+
+void Player::resolveEndCollision(GameObject* other){
+	switch(other->getType()){
+		case RockType: 
+		case GroundType:
+			isOnGround = false;
 	}
 }
 
@@ -71,16 +79,14 @@ void Player::setupBody(){
 
 
 void Player::jump(){
-	if(jumpsLeft > 0){
-		--jumpsLeft;
-
+	if(isOnGround){
 		b2Vec2 currentVelocity = body->GetLinearVelocity();
 		if(currentVelocity.y < 0){
 			currentVelocity.y = 0;
 		}
 		body->SetLinearVelocity(currentVelocity);
 
-		b2Vec2 force = b2Vec2(0.f, 12.0/MAX_JUMPS);
+		b2Vec2 force = b2Vec2(0.f, 12.0);
 		b2Vec2 point = body->GetPosition();
 
 		body->ApplyLinearImpulse(force, point);

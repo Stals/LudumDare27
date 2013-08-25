@@ -20,6 +20,7 @@ public:
 	ObjectType getType();
 
 	virtual void resolveCollision(GameObject* other) = 0;
+	virtual void resolveEndCollision(GameObject* other){}
 
 	virtual void setStartPosition(const cocos2d::CCPoint& pos);
 protected:

@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-#define MAX_JUMPS 1
 
 class Player : public GameObject{
 public:
@@ -9,6 +8,7 @@ public:
 	virtual ~Player();
 	
 	virtual void resolveCollision(GameObject* other);
+	virtual void resolveEndCollision(GameObject* other);
 
 	void jump();
 	void moveLeft();
@@ -16,7 +16,7 @@ public:
 
 protected:
 	cocos2d::CCSprite *sprite;
-	int jumpsLeft;
+	bool isOnGround;
 
 	virtual void setupBody();
 	virtual void update(float dt);
