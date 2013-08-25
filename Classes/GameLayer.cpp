@@ -5,10 +5,6 @@
 
 
 USING_NS_CC;
-//#define DEBUG_BOX2D
-#ifdef DEBUG_BOX2D
-#include "B2DebugDraw/B2DebugDrawLayer.h"
-#endif
 
 bool GameLayer::twoPlayers = false;
 bool GameLayer::firstLunch = true;
@@ -112,10 +108,6 @@ void GameLayer::setupWorld(){
     m_b2dWorld->SetContactListener(m_contactListener);
 	m_b2dWorld->Step(1, 10, 10);
 
-
-#ifdef DEBUG_BOX2D
-	addChild(B2DebugDrawLayer::create(m_b2dWorld, PTM_RATIO), 9999);
-#endif
 }
 
 void GameLayer::setupBackground(){
