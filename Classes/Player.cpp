@@ -54,10 +54,13 @@ void Player::setupBody(){
     spriteBodyDef.userData = this;
     body = world->CreateBody(&spriteBodyDef);
  
-    b2PolygonShape spriteShape;
+    /*b2PolygonShape spriteShape;
 	spriteShape.SetAsBox(sprite->getContentSize().width/PTM_RATIO/2,
                          sprite->getContentSize().height/PTM_RATIO/2);
-	
+	*/
+	b2CircleShape spriteShape;
+	spriteShape.m_radius = 15.f/PTM_RATIO;
+
     b2FixtureDef spriteShapeDef;
     spriteShapeDef.shape = &spriteShape;
     spriteShapeDef.density = 0.0; // so that will not spin
