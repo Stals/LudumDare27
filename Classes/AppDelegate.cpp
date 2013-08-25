@@ -46,9 +46,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // run
     pDirector->runWithScene(pScene);
 
-
+	preloadSounds();
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("background.mp3", true);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.3f);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(0.2f);
     return true;
 }
 
@@ -69,6 +70,10 @@ void AppDelegate::applicationWillEnterForeground() {
 }
 
 void AppDelegate::preloadSounds(){
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(0.0f);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("sound/rock_hit_ground.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/jump.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/hurt.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/win.wav");
 }
 

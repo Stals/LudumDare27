@@ -35,7 +35,7 @@ void Player::resolveCollision(GameObject* other){
 				this->body->SetUserData(NULL);
 				this->sprite->setVisible(false);
 				((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerLooseRock);
-
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/hurt.wav");
 				break;
 			}
 		case GroundType:
@@ -46,6 +46,7 @@ void Player::resolveCollision(GameObject* other){
 			this->body->SetUserData(NULL);
 			this->sprite->setVisible(false);
 			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
+			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/win.wav");
 			break;
 		default:
 			;
@@ -100,6 +101,10 @@ void Player::jump(){
 		b2Vec2 point = body->GetPosition();
 
 		body->ApplyLinearImpulse(force, point);
+
+		if(!isDead()){
+			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/jump.wav");
+		}
 	}
 }
 
