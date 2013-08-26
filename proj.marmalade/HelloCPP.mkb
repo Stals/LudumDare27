@@ -1,0 +1,47 @@
+options
+{
+	module_path="../../../../cocos2dx/proj.marmalade/;../../../../CocosDenshion/proj.marmalade/;../../../../extensions/proj.marmalade/;../../../../external/chipmunk/proj.marmalade/;../../../../external/Box2D/proj.marmalade/"
+	s3e-data-dir = "../Resources"
+}
+
+includepaths
+{
+	../Classes
+}
+subprojects
+{
+	IwGL
+	cocos2dx
+	CocosDenshion
+	Box2D
+}
+
+assets
+{
+	(../Resources)
+	fonts
+	ipad
+	ipadhd
+	iphone
+}
+
+
+
+files
+{
+	[Main]
+	(src)
+	Main.h
+	Main.cpp
+
+	(../Classes)
+	"*.h"
+	"*.cpp"
+}
+
+deployments
+{
+    # default version
+    name=Climb
+    caption="Climb"
+}
