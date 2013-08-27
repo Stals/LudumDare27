@@ -34,7 +34,7 @@ void Player::resolveCollision(GameObject* other){
 			if(spikeIntercect(other)){
 				this->body->SetUserData(NULL);
 				this->sprite->setVisible(false);
-				((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerLooseRock);
+				((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(PlayerLooseRock);
 				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/hurt.wav");
 				break;
 			}
@@ -45,7 +45,7 @@ void Player::resolveCollision(GameObject* other){
 		case FinishType:
 			this->body->SetUserData(NULL);
 			this->sprite->setVisible(false);
-			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(GameOverType::PlayerWin);
+			((GameLayer*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(1337))->endGame(PlayerWin);
 			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/win.wav");
 			break;
 		default:

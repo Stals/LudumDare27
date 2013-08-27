@@ -21,7 +21,7 @@ void TimerSprite::setEndTimeCallback(CCObject *rec, SEL_MenuHandler selector){
 }
 
 void TimerSprite::setupLabel(int fontSize, ccColor3B color){ //Quicksand_Bold
-	timerLabel = CCLabelTTF::create(toString(currectSeconds).c_str(), "fonts/Quicksand_Bold", fontSize, CCSizeMake(200,200), cocos2d::CCTextAlignment::kCCTextAlignmentCenter);
+	timerLabel = CCLabelTTF::create(toString(currectSeconds).c_str(), "fonts/Quicksand_Bold", fontSize, CCSizeMake(200,200), kCCTextAlignmentCenter);
 	timerLabel->setColor(color);
 	timerLabel->setOpacity(127);
 	timerLabel->setAnchorPoint(ccp(0.5,0.5));

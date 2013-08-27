@@ -23,6 +23,30 @@ assets
 	ipad
 	ipadhd
 	iphone
+	sound
+
+	background.mp3
+	sound/hurt.wav
+	sound/jump.wav
+	sound/rock_hit_ground.wav
+	sound/win.wav
+
+
+	1Player_selected.png
+	1Player_unselected.png
+	2Players_selected.png
+	2Players_unselected.png
+	Finish.png
+	Ground.png
+	play_again_selected.png
+	play_again.png
+	Player.png
+	Player2.png
+	Rock.png
+	Title.png
+
+	fonts/Quicksand_Bold.ttf
+
 }
 
 

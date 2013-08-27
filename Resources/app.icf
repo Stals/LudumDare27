@@ -24,3 +24,8 @@ MemSize=20485760
 [S3E]
 WinWidth=480
 WinHeight=800 
+
+{OS=OSX} 
+[S3E]
+WinWidth=480
+WinHeight=800 

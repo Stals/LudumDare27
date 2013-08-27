@@ -72,7 +72,7 @@ bool GameLayer::init()
 	schedule(schedule_selector(GameLayer::spawnRock), 0.25/1.5);
 	
 	if(firstLunch){
-		endGame(GameOverType::None);
+		endGame(None);
 		firstLunch = false;
 	}else{
 		setupPlayer(false);
@@ -141,31 +141,31 @@ void GameLayer::update(float delta )
 	}
 
 	if(playerOne){
-		if(keyboard->wasKeyPressed(InputKey::Key_Up)){
+		if(keyboard->wasKeyPressed(Key_Up)){
 			playerOne->jump();
 		}
-		if(keyboard->isKeyDown(InputKey::Key_Left)){
+		if(keyboard->isKeyDown(Key_Left)){
 			playerOne->moveLeft();
 		}
-		if(keyboard->isKeyDown(InputKey::Key_Right)){
+		if(keyboard->isKeyDown(Key_Right)){
 			playerOne->moveRight();
 		}
 	}
 
 	if(playerTwo){
-		if(keyboard->wasKeyPressed(InputKey::Key_Space) ||
-			keyboard->wasKeyPressed(InputKey::Key_W)){
+		if(keyboard->wasKeyPressed(Key_Space) ||
+			keyboard->wasKeyPressed(Key_W)){
 			playerTwo->jump();
 		}
-		if(keyboard->isKeyDown(InputKey::Key_A)){
+		if(keyboard->isKeyDown(Key_A)){
 			playerTwo->moveLeft();
 		}
-		if(keyboard->isKeyDown(InputKey::Key_D)){
+		if(keyboard->isKeyDown(Key_D)){
 			playerTwo->moveRight();
 		}
 	}
 
-	if(keyboard->wasKeyPressed(InputKey::Key_R)){
+	if(keyboard->wasKeyPressed(Key_R)){
 		this->restart(this);		
 	}
 
@@ -240,7 +240,7 @@ void GameLayer::setupTimer(){
 }
 
 void GameLayer::timeUp(CCObject *pSender){
-	endGame(GameOverType::PlayerLooseTime);
+	endGame(PlayerLooseTime);
 }
 
 void GameLayer::restart(CCObject *pSender){
@@ -253,7 +253,7 @@ void GameLayer::endGame(GameOverType type){
 
 		bool show = true;
 
-		if ((type == GameOverType::PlayerLooseRock) && twoPlayers){
+		if ((type == PlayerLooseRock) && twoPlayers){
 			if(playerOne->isDead() && playerTwo->isDead()){
 				show = true;
 			}else{
