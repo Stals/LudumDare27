@@ -8,3 +8,5 @@ You can jump from one spike/rock to another and need to reach finish without dyi
 (You die if you touch the bottom of the rock and can jump of top or the sides of it)
 
 All sound effects were made with SFXR, and music with cgMusic.
+
+Entry page: http://www.ludumdare.com/compo/ludum-dare-27/?action=preview&uid=25969
